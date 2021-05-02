@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<script type="text/javascript">
+			// 189000833 牛隆祥
+			/* 
+				三角形
+			 */
+			//设置三角形行数
+			/* for(var i=1;i<6;i++)
+			{
+				//设置倒三角形空白
+				for(var m=6;m>i;m--)
+				{
+					document.write("&nbsp");
+				}
+				//设置三角形每行星号个数
+				for(var j=0;j<i;j++)
+				{
+					document.write(" "+"*");
+				}
+				//打印
+				document.write("<br />");
+			} */
+			
+			
+			/* 
+				平行四边形
+			 */
+			//设置四边形行数
+			/* for(var i=1;i<6;i++)
+			{
+				//设置空白倒三角形，使四边形移动为平行四边形
+				for(var m=6;m>i;m--)
+				{
+					document.write("&nbsp");
+				}
+				//设置四边形每行个数
+				for(var j=1;j<7;j++)
+				{
+					document.write(" "+"*");
+				}
+				//打印
+				document.write("<br />");
+			} */
+			
+			/* 
+				菱形
+			 */
+			//设置菱形的正三角部分
+			/* for(var i=0;i<3;i++)
+			{
+					//正三角部分的空三角
+					for(var m=2;m>i;m--)
+					{
+						document.write("&nbsp&nbsp");
+					}
+					//正三角每行的个数
+					for(var j=0;j<i*2+1;j++)
+					{
+						document.write(" "+"*");
+					}
+					
+					document.write("<br />");
+				
+			} */
+			//设置菱形的倒三角部分
+			//倒三角行数
+			/* for(var i=2;i>0;i--)
+			{
+				//倒三角的空三角形
+				for(var n=3;n>i;n--)
+				{
+					document.write("&nbsp&nbsp");
+				}
+				//倒三角每行的个数
+				for(var j=0;j<2*i-1;j++)
+				{
+					document.write(" "+"*");
+				}
+				document.write("<br />");
+			} */
+			
+			/* 
+			prompt方法 
+			 prompt(text,defaultText)  
+				text: 对话框中显示的纯文本、
+				defaultText: 默认输入的文本.
+			 */
+			
+			/* 
+				平行四边形
+			 */
+			function disp_promptsi(){
+				var n=prompt("请输入行数")
+				//设置四边形的行数，根据参数n
+				for(var i=0;i<n;i++)
+				{
+					//设置四边形的偏移度，根据参数n
+					for(var m=n;m>i;m--)
+					{
+						document.write("&nbsp");
+					}
+					//根据参数n设置每行的个数
+					for(var j=0;j<n;j++)
+					{
+						document.write(" "+"*");
+					}
+					document.write("<br />");
+				}
+			}
+			
+			
+			/* 
+				三角形：备注同理见上
+			 */
+			function disp_promptsan(){
+				var n=prompt("请输入行数")
+				for(var i=1;i<=n;i++)
+				{
+					for(var j=n;j>=i;j--)
+					{
+						document.write("&nbsp");
+					}
+					for(var a=0;a<i;a++)
+					{
+						document.write(" "+"*");
+					}
+					document.write("<br />");
+				}
+			}		
+		</script>
+	</head>
+	<body>
+		<input type="button" onclick="disp_promptsi()" value="请输入打印平行四边形的行数" />
+		<br />
+		<input type="button" onclick="disp_promptsan()" value="请输入打印三角形的行数" />
+	</body>
+</html>

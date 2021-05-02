@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<link rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
+		<link rel="stylesheet" href="css/menu1.css" />
+		<title>练习02 实现菜单的收缩与扩展</title>
+	</head>
+
+	<body>
+		<div id="leftNav" class="left-nav">
+			<div id="myMenu" class="menuBox">
+				<ul class="spMenuBox">
+					<li class="spMenuItem active">
+						<div class="spMenu">
+							<i class="fa fa-folder-open"></i>
+							<span>菜单1</span>
+							<i class="fa fa-2x fa-angle-down"></i>
+						</div>
+						<ul class="subMenuBox" style="display: block;">
+							<li><span class="subMenu">菜单1.1</span></li>
+							<li><span class="subMenu">菜单1.2</span></li>
+							<li><span class="subMenu">菜单1.3</span></li>
+						</ul>
+					</li>
+					<li class="spMenuItem">
+						<div class="spMenu">
+							<i class="fa fa-folder"></i>
+							<span>菜单2</span>
+							<i class="fa fa-2x fa-angle-down"></i>
+						</div>
+						<ul class="subMenuBox" style="display: none;">
+							<li><span class="subMenu">菜单2.1</span></li>
+							<li><span class="subMenu">菜单2.2</span></li>
+							<li><span class="subMenu">菜单2.3</span></li>
+							<li><span class="subMenu">菜单2.1</span></li>
+							<li><span class="subMenu">菜单2.2</span></li>
+							<li><span class="subMenu">菜单2.3</span></li>
+						</ul>
+					</li>
+					<li class="spMenuItem">
+						<div class="spMenu">
+							<i class="fa fa-folder"></i>
+							<span>菜单3</span>
+							<i class="fa fa-2x fa-angle-down"></i>
+						</div>
+						<ul class="subMenuBox" style="display: none;">
+							<li><span class="subMenu">菜单3.1</span></li>
+							<li><span class="subMenu">菜单3.2</span></li>
+							<li><span class="subMenu">菜单3.3</span></li>
+							<li><span class="subMenu">菜单3.1</span></li>
+							<li><span class="subMenu">菜单3.2</span></li>
+							<li><span class="subMenu">菜单3.3</span></li>
+							<li><span class="subMenu">菜单3.1</span></li>
+							<li><span class="subMenu">菜单3.2</span></li>
+							<li><span class="subMenu">菜单3.3</span></li>
+						</ul>
+					</li>
+					<li class="spMenuItem">
+						<div class="spMenu">
+							<i class="fa fa-folder"></i>
+							<span>菜单4</span>
+							<i class="fa fa-2x fa-angle-down"></i>
+						</div>
+						<ul class="subMenuBox" style="display: none;">
+							<li><span class="subMenu">菜单4.1</span></li>
+							<li><span class="subMenu">菜单4.2</span></li>
+							<li><span class="subMenu">菜单4.3</span></li>
+						</ul>
+					</li>
+					<li class="spMenuItem">
+						<div class="spMenu">
+							<i class="fa fa-folder"></i>
+							<span>菜单5</span>
+							<i class="fa fa-2x fa-angle-down"></i>
+						</div>
+						<ul class="subMenuBox" style="display: none;">
+							<li><span class="subMenu">菜单5.1</span></li>
+							<li><span class="subMenu">菜单5.2</span></li>
+							<li><span class="subMenu">菜单5.3</span></li>
+							<li><span class="subMenu">菜单5.1</span></li>
+							<li><span class="subMenu">菜单5.2</span></li>
+							<li><span class="subMenu">菜单5.3</span></li>
+						</ul>
+					</li>
+				</ul>
+			</div>		
+		</div>
+	</body>
+	<script>
+		//189000833 牛隆祥
+		window.onload = function(){
+			//获取所有li标签集合
+			var lis = document.getElementsByClassName('spMenuItem');
+			var n = 0;
+			for(let m = 0; m<lis.length;m++){
+				//为某个i标签添加点击事件
+					lis[m].addEventListener("click",function(){
+						//获取展示的二级菜单以及文件的位置.
+						var items = document.querySelectorAll(".subMenuBox");
+						var div1 = document.querySelectorAll(".spMenu")[m].getElementsByTagName("i")[0];
+						var div2 = document.querySelectorAll(".spMenuItem")[m];		
+						//判断菜单是否是打开还是关闭状态.
+						if(items[m].style.display == 'none')
+						{
+							/* 获取网页中已经打卡菜单的导航栏标签名 */
+							var divv = document.querySelectorAll(".spMenu>i");
+							var divvv = document.querySelectorAll(".spMenuItem");
+								for(var i in divv){
+									for(var i =0;i<11;i++){
+										if(items[i].style.display == 'block')
+										{
+											/* 修改它们的属性 */
+											items[i].style.display = "none";
+											divv[i].setAttribute("class","fa fa-folder");
+											divvv[i].setAttribute("class","spMenuItem");
+										}
+										else{
+											break;
+										}
+									}
+								}	
+							//展开选中菜单项
+							items[m].style.display = "block";
+							//设置选中菜单项文件夹展开和箭头方向
+							div1.setAttribute("class","fa fa-folder-open");
+							div2.setAttribute("class","spMenuItem active");
+						}
+						else{
+							//关闭选中的菜单项和箭头方向.
+							items[m].style.display = "none";
+							div1.setAttribute("class","fa fa-folder");
+							div2.setAttribute("class","spMenuItem");
+						}
+					});
+			}	
+		}		
+	</script>
+</html>

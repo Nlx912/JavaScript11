@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<script type="text/javascript">
+			/* 
+				秒表的实现
+			 */
+			//可以将查找标签节点的操作简化
+			 function $(id){
+				return document.getElementById(id);
+			}
+			window.onload=function(){
+				//开始计数以后，累加的秒数
+				var count=0;
+				var timer=null;
+				$("start").onclick=function(){
+					timer=setInterval(function(){
+						count++;
+						//需要改变页面时分的值.
+						$("id_S").innerHTML=showNum(count%60);
+						$("id_M").innerHTML=showNum(parseInt(count/60) %60);
+						$("id_H").innerHTML=showNum(parseInt(count/3600));
+					},1000);
+				}
+				
+				//暂停
+				$("pause").onclick=function(){
+					//取消定时器
+					clearInterval(timer);
+				}	
+								
+				//停止 停止计数，数据清零
+				$("stop").onclick=function(){
+					clearInterval(timer);
+					count=0;
+					$("id_S").innerHTML="00";
+					$("id_M").innerHTML="00";
+					$("id_H").innerHTML="00";
+					
+				}
+				
+			}				
+			//处理单个数字
+			function showNum(num){ 
+				 if(num<10){
+					return "0"+num;
+				}
+				else{
+					return num;
+				}
+			} 
+			
+			
+			
+		</script>		
+		<style type="text/css">
+			#div1{
+			width: 300px;
+			height: 400px;
+			background-color: gray;
+			margin: 100px auto;
+			text-align: center;
+			}
+			
+			#count{
+				width: 200px;
+				height: 150px;
+				line-height: 150px;
+				margin: auto;
+				font-size: 40px;
+			}
+			
+			#div1 input{
+				width: 150px;
+				height: 40px;
+				background-color: yellow;
+				font-size: 25px;
+				margin-top: 20px;
+			}
+		</style>
+	</head>
+	<body>
+			<div id="div1">
+			<div id="count">
+				<span id="id_H">00</span>:
+				<span id="id_M">00</span>:
+				<span id="id_S">00</span>
+			</div>
+			<input id="start" type="button" value="开始" />
+			<input id="pause" type="button" value="暂停" />
+			<input id="stop"  type="button" value="停止" />
+			</div>	
+	</body>
+</html>
