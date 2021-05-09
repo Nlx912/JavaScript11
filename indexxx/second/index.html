@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style type="text/css">
+			*{
+				margin: 0;
+				padding: 0;
+				background-color: darkkhaki;
+			}
+			#canvas{
+				background-color: antiquewhite;
+				margin:100px 200px 200px 200px;
+			}
+			#res{
+				width: 100px;
+				height: 150px;
+				border-radius: 50px;
+				margin-top: -550px;
+				margin-left: 550px;
+				display: none;
+			}
+			.mark{
+				margin-top: -580px;
+				margin-left: 550px;
+			}
+			#res h2{
+				text-align: center;
+				padding: 5px;
+			}
+			#res img{
+				width: 50px;
+				height: 50px;
+				display: none;
+				border-radius: 50%;
+				
+			}
+		</style>
+	</head>
+	
+	<body>
+		<canvas id="canvas" width="800" height="280"></canvas>
+		<div class="mark" id="mark"></div>	
+		<div class="res" id="res">
+			<h2></h2>
+			<img src="依赖包/金牌.png" />	
+		</div>
+	</body>
+	<script>
+		var canvas = document.getElementById("canvas");
+		//绘图
+		var context = canvas.getContext("2d");
+		
+		//创建一个图片
+		var img = new Image();
+		img.src = "依赖包/鸟上.png";
+		
+		//小鸟初始位置
+		var birdx = 200;
+		var birdy = 100;
+		//定时器
+		var birdTimer = null;
+		
+		//等待图片加载结束，绘制图片.
+		img.onload = function(){
+			if(birdTimer == null)
+			birdTimer = setInterval(function(){
+				//给小鸟限制下边
+				if(birdy<=240){
+					birdy ++;
+				}
+				//清空画布
+				context.clearRect(0,0,800,280);
+				drawColumn();
+				context.drawImage(img,birdx,birdy);	
+			},10);	
+		}
+		//鼠标点击改变小鸟的翅膀形状
+		document.onmousedown = function(){
+			img.src = "依赖包/鸟下.png";
+			birdy = birdy -30;
+		}
+		//鼠标移开改变小鸟形状
+		document.onmouseup = function(){
+			img.src = "依赖包/鸟上.png";
+		}
+		
+		//柱子.
+		
+		var columnArr = [];			
+		var columnTimer = null; 	
+		 //批量随机生产柱子
+		 function createColumn(){		 
+			columnTimer = setInterval(function(){
+				 var column = {};//柱子容器
+				 column.positionX = 800;
+				 column.positionY = -Math.round(Math.random()*100+50);
+				 column.imgA = new Image();
+				 column.imgB = new Image();
+				 column.imgA.src = "依赖包/柱子1.png";
+				 column.imgB.src = "依赖包/柱子2.png";
+				 column.id = new Date().getTime();
+				 columnArr.push(column);
+			 },1000);//柱子生成时间	 
+		 }
+		 createColumn();
+		 
+		 var same = null;
+		 var mark = -1;
+		
+		//生成的柱子依次排列
+		function drawColumn(){
+			for(var i = 0; i<columnArr.length;i++){	
+				columnArr[i].positionX--;
+				context.drawImage(columnArr[i].imgA,columnArr[i].positionX,columnArr[i].positionY);
+				context.drawImage(columnArr[i].imgB,columnArr[i].positionX,columnArr[i].positionY+270);		
+				//判断经过:以小鸟为中心，根据鸟长和柱子的宽度，判断是否碰到.
+				if(birdx + 47 >=columnArr[i].positionX && birdx - 32 <= columnArr[i].positionX)
+				{
+					//加分
+					if(columnArr[i].id != same){
+						mark++;
+						same = columnArr[i].id;		
+						document.getElementById("mark").innerHTML = "得分" + mark;
+					}
+					//判断碰撞:以小鸟为轴中心，根据鸟长度和柱子实际长度判断是否碰撞.
+					if(birdy < columnArr[i].positionY + 190 || birdy + 42 > columnArr[i].positionY+280){
+						clearInterval(columnTimer);
+						clearInterval(birdTimer);
+					var ores = document.getElementById("res");
+					ores.style.display = "block";
+					//奖牌
+					ores.children[0].innerHTML = "得分:" + mark;
+						if(mark > 0 && mark<10){
+							ores.children[1].src = "依赖包/银牌.png";
+						}
+						else if(mark >= 10){
+							ores.children[1].src = "依赖包/金牌.png";
+						}
+						//游戏结束后自动重新开始游戏
+						setTimeout(function(){
+							ores.innerHTML = "<p>重新开始</p>";
+							setTimeout(function(){
+								location.reload();
+							},3000);
+						},5000);
+					}
+				}
+				
+			}
+		}
+		
+	</script>
+</html>
