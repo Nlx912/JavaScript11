@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style type="text/css">
+			.beijing{
+				width: 100vw;
+				height: 100vh;
+				background-color: black;
+			}
+			.play_right{
+				width: 150px;
+				height: 150px;
+				position: absolute;
+				display: none;
+			}
+		</style>
+		<script src="jquery.min.js"></script>
+		<script>
+			/* 189000833 牛隆祥 */
+			$(function(){
+				window.document.oncontextmenu = function(){
+					return false;
+				}
+				$(document).keydown(function(e){
+					$(".play_right").css("display","inline")
+					switch(e.keyCode){
+						case 81: $(".play_right").attr("src","img/playerbig_left.gif");break; 
+						case 87: $(".play_right").attr("src","img/playerbig_right.gif");break;					
+						case 69: $(".play_right").attr("src","img/player3.gif");break;						
+						case 49: $(".play_right").attr("src","img/pet.gif");break;
+						case 50: $(".play_right").attr("src","img/player_big.gif");break;			
+						case 51: $(".play_right").attr("src","img/player_left.gif");break;
+						case 52: $(".play_right").attr("src","img/player_right.gif");break;
+						case 53: $(".play_right").attr("src","img/player1_big.gif");break;
+						case 54: $(".play_right").attr("src","img/player1.gif");
+					}
+				
+				/* 基本鼠标点击行走事件 */
+				$(document).mousedown(function(e){
+					if(e.which ==1){
+						$(".play_right").stop();
+						//获取鼠标点击位置
+						var x = e.pageX;
+						var y = e.pageY;
+						//获取人物位置并substring
+						var playx = $(".play_right").css('left');
+						var play11= playx.substring(0,playx.length-2);
+						var playy = $(".play_right").css('top');
+						var play12 = playy.substring(0,playy.length-2);
+						//往左走，判断
+						if(play11-x>0){	
+							$(".play_right").attr("src","img/playerbig_left.gif");
+						}
+						//往右走，判断
+						else
+						{
+							$(".play_right").attr("src","img/playerbig_right.gif");
+						}
+						//执行动画
+						$(".play_right").animate({
+							left:x-70,
+							top:y-70
+						},5000);
+					}
+						else{
+							console.log("只能左键点击")
+						}
+				})		
+			})
+			})
+			
+		</script>
+	</head>
+	<body>
+		<div class="beijing">
+			<img src=" " class="play_right" />
+		</div>
+	</body>
+</html>
